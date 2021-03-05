@@ -10,7 +10,7 @@ class csuLibrary():
     def __init__(self):
         self.session = requests.session()
         self.username = "8209180334"
-        self.pwd = "294633"
+        self.pwd = "******"
 
 
     def login(self):
@@ -127,5 +127,6 @@ if __name__ == '__main__':
     for i in rest:
         print(i)
 
+    print(csu.session.cookies)
 
     csu.saveCookies()
