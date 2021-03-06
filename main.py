@@ -96,6 +96,7 @@ class csuLibrary():
         import json
         j = json.loads(s)
         seatList = j['data']['list']
+        # print(j)
 
         rest = {}
         for i in seatList:
