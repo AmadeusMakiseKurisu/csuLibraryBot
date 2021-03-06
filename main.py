@@ -13,6 +13,7 @@ class csuLibrary():
         self.pwd = "294633"
         self.segment = ''
 
+    # 登录，获取一个验证id，这个id将会用于获取token
     def login(self):
 
 
@@ -42,7 +43,11 @@ class csuLibrary():
         # print(self.session.cookies)
 
 
+
+    # 获取token
     def getToken(self):
+
+        # 计算token接口页面
         home = 'http://libzw.csu.edu.cn/sso/home.php'
 
         headers2 = getHeader('reqFile/req2')
@@ -60,11 +65,15 @@ class csuLibrary():
         ans = ans.replace('";', '')
         ans
 
+
+        # token接口页面
         checkUrl = 'http://libzw.csu.edu.cn/Api/auto_user_check?' + ans
         # print(checkUrl)
 
         reqToken = self.session.get(url=checkUrl)
 
+
+    # 获取时间戳，每次要用之前访问一下
     def getSegment(self):
         day, hour, minute = getNow()
 
@@ -82,7 +91,7 @@ class csuLibrary():
 
 
 
-    # 目前固定了铁道2楼的url
+    # 目前固定了铁道2楼的url， 返回目前的空闲位置
     def checkRest(self):
         day, hour, minute = getNow()
         # 这里是参数，固定了铁道2楼就是这个
@@ -111,6 +120,8 @@ class csuLibrary():
         return rest
 
 
+
+    # 传入座位id， 选择座位
     def chooseSeat(self, id):
 
         formData = {}
@@ -137,7 +148,7 @@ class csuLibrary():
 if __name__ == '__main__':
     csu = csuLibrary()
     flag = 'new1'
-    if flag == 'new':
+    if flag == 'new':  # 是否需要获取新的token
         csu.login()
         print(csu.session.cookies)
 
@@ -148,6 +159,7 @@ if __name__ == '__main__':
     # 获取segment，也就是今天的时间标记, 必须的
     csu.getSegment()
 
+    # 获取空闲位子
     rest = csu.checkRest()
 
     print('空闲的位子有')
