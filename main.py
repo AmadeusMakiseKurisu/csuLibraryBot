@@ -11,7 +11,7 @@ class csuLibrary():
         self.session = requests.session()
         self.username = "8209180334"
         self.pwd = "294633"
-        self.area = "53"
+        self.area = "53" #新校谋区的编号
         self.segment = ''
         self.seatListFun={}
 
@@ -20,14 +20,15 @@ class csuLibrary():
 
         # 登录，获取一个验证id，这个id将会用于获取token
 
-        checkUrl = 'http://libzw.csu.edu.cn/Api/auto_user_check?' + 'user=8209180334&p=b87ccdc40713b8d1c5b37634a7dad9c0&callback=http://libzw.csu.edu.cn/web/seat3?area=53'
+        checkUrl = 'http://libzw.csu.edu.cn/Api/auto_user_check?' + 'user=8209180334&p=b87ccdc40713b8d1c5b37634a7dad9c0&callback=http://libzw.csu.edu.cn/web/seat3?area='+self.area
 
         reqToken = self.session.get(url=checkUrl)
 
     def getSegment(self):
         day, hour, minute = getNow()
 
-        url = 'http://libzw.csu.edu.cn/api.php/space_time_buckets?day='+day+'&area=87'
+        url = 'http://libzw.csu.edu.cn/api.php/space_time_buckets?day='+day+'&area='+self.area
+        print(url)
         seatHeader2 = getHeader('reqFile/reqSeat2')
 
         spaceReq = self.session.get(url=url, headers=seatHeader2)
@@ -47,7 +48,7 @@ class csuLibrary():
         # 这里是参数，固定了铁道2楼就是这个
         # self.getSegment()
         # print(self.segment)
-        spaceUrl = 'http://libzw.csu.edu.cn/api.php/spaces_old?area=53&segment=1519031+'+'&day=' + day + '&startTime=' + str(hour) + ':' + str(minute) + '&endTime=22%3A00'
+        spaceUrl = 'http://libzw.csu.edu.cn/api.php/spaces_old?area='+self.area+'&segment='+self.segment+'&day=' + day + '&startTime=' + str(hour) + ':' + str(minute) + '&endTime=22%3A00'
         seatHeader2 = getHeader('reqFile/reqSeat2')
 
         spaceReq = self.session.get(url=spaceUrl, headers=seatHeader2)
@@ -99,7 +100,8 @@ if __name__ == '__main__':
     csu = csuLibrary()
     csu.getSegment()
     print(csu.segment)
-    if True:  # 是否需要获取新的token
+
+    if False:  # 是否需要获取新的token
         csu.login()
         print(csu.session.cookies)
         csu.saveCookies()
@@ -107,23 +109,30 @@ if __name__ == '__main__':
     else:
         csu.loadCookies()
 
-    # 获取segment，也就是今天的时间标记, 必须的
 
-#    获取空闲位子
+    # # 获取segment，也就是今天的时间标记, 必须的
+    # for i in range(1,100):
+    #     csu.area = str(i)
+    #     #获取空闲位子
+    #     try:
+    #         print()
+    #         rest = csu.checkRest()
+    #         print(csu.area+'空闲的位子有')
+    #         for i in rest:
+    #             print(i)
+    #
+    #     except Exception as e:
+    #         print(end='')
+    #
+    #         # print(e)
+
+
     rest = csu.checkRest()
-    print('空闲的位子有')
-    for i in rest:
-        print(i)
-
-
-    id = csu.seatListFun = rest['XF4E013']
+    id = rest['XF4E013']
     choose = csu.chooseSeat(id)
     print(choose)
 
 
 
-    # print( csu.segment,csu.session.cookies)
-    # ans = csu.chooseSeat(rest['TF2A014'])
-    # print(ans)
 
     csu.saveCookies()
