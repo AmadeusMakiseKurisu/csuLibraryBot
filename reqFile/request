@@ -1,10 +1,14 @@
-Proxy-Connection: keep-alive
-Content-Length: 99
-Cache-Control: max-age=0
-Upgrade-Insecure-Requests: 1
-Origin: http://libuser.csu.edu.cn
-Content-Type: application/x-www-form-urlencoded
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
-Referer: http://libuser.csu.edu.cn/center/ifcuas/logout?appId=cascsu&retUrl=http://libzw.csu.edu.cn
-Accept-Encoding: gzip, deflate
-Accept-Language: zh-CN,zh;q=0.9,en-US;q=0.8,en;q=0.7,ja-JP;q=0.6,ja;q=0.5
+Host: ca.csu.edu.cn
+Connection: keep-alive
+sec-ch-ua: " Not A;Brand";v="99", "Chromium";v="96", "Google Chrome";v="96"
+Accept: application/json, text/javascript, */*; q=0.01
+X-Requested-With: XMLHttpRequest
+sec-ch-ua-mobile: ?0
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36
+sec-ch-ua-platform: "Windows"
+Sec-Fetch-Site: same-origin
+Sec-Fetch-Mode: cors
+Sec-Fetch-Dest: empty
+Referer: https://ca.csu.edu.cn/authserver/login?service=http%3A%2F%2Flibzw.csu.edu.cn%2Fcas%2Findex.php%3Fcallback%3Dhttp%3A%2F%2Flibzw.csu.edu.cn%2Fweb%2Fseat3%3Farea%3D53
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9
